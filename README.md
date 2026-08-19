@@ -2,7 +2,7 @@
 Proyecto realizado por estudiantes de Ingenieria en Computacion, de la Universidad Autonoma de Tlaxcala.
 Participantes:
 *Jair Ismael Guerrero Luna
-*Marco Antonio González Ahuatzin
+*Marco Antonio González Ahuactzin
 *Samuel Gómez Moreno
 *Cristian Emmanuel Flores Ocaña
 
