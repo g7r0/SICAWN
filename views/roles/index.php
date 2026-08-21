@@ -1,21 +1,22 @@
 <?php
 /**
  * views/roles/index.php
- * Vista del CU_01 — Gestionar Roles.
+ * Vista del CU-01 — Gestión de Roles.
  * No accedas a este archivo directamente; se carga desde RolesController.php
  */
+require_once __DIR__ . '/../../config/rutas.php';
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>SICAWN — Gestión de Roles</title>
-    <link rel="stylesheet" href="/assets/css/estilos.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/estilos.css">
 </head>
 <body>
 
     <h1>Gestión de Roles</h1>
-    <a href="/controllers/LogoutController.php" style="float:right;">Cerrar sesión</a>
+    <a href="<?= BASE_URL ?>/controllers/LogoutController.php" style="float:right;">Cerrar sesión</a>
 
     <?php if ($mensaje): ?>
         <p style="padding:10px; border-radius:6px; background-color: <?= $tipoMensaje === 'exito' ? '#d1fae5' : '#fee2e2' ?>;">
@@ -24,9 +25,8 @@
     <?php endif; ?>
 
     <?php if ($sinUsuarios): ?>
-        <!-- Alternativa 1.A de la ERS -->
         <p>No existe ningún usuario registrado en el sistema.</p>
-        <a href="/views/contribuyentes/registrar.php" class="btn btn-primario">Registrar Contribuyente</a>
+        <a href="<?= BASE_URL ?>/views/contribuyentes/registrar.php" class="btn btn-primario">Registrar Contribuyente</a>
 
     <?php else: ?>
         <table border="1" cellpadding="8" cellspacing="0" style="width:100%; border-collapse: collapse;">
@@ -47,7 +47,7 @@
                         <td><?= htmlspecialchars($u['telefono']) ?></td>
                         <td><?= $u['rol'] ? htmlspecialchars(ucfirst($u['rol'])) : '— Sin asignar —' ?></td>
                         <td>
-                            <form method="POST" action="/controllers/RolesController.php" style="display:flex; gap:8px;">
+                            <form method="POST" action="<?= BASE_URL ?>/controllers/RolesController.php" style="display:flex; gap:8px;">
                                 <input type="hidden" name="id_usuario" value="<?= $u['id_usuario'] ?>">
                                 <select name="rol" required>
                                     <option value="">Selecciona...</option>
