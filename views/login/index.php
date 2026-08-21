@@ -29,7 +29,7 @@
             </p>
         <?php endif; ?>
 
-        <form method="POST" action="/controllers/LoginController.php">
+        <form method="POST" action="/SICAWN/controllers/LoginController.php">
             <label for="nombre_usuario">Usuario</label><br>
             <input type="text" id="nombre_usuario" name="nombre_usuario" required autofocus><br><br>
 

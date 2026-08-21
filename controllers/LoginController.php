@@ -62,14 +62,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 function redirigirSegunRol(?string $rol): void
 {
     if ($rol === 'presidente') {
-        header('Location: /controllers/RolesController.php');
+        header('Location: /SICAWN/controllers/RolesController.php');
     } elseif ($rol === 'cobrador') {
         header('Location: /views/panel/cobrador.php');
     } else {
         // Usuario sin rol asignado todavía (caso de borde, CU-01 pendiente)
         session_destroy();
-        header('Location: /controllers/LoginController.php?sin_rol=1');
+        header('Location: //controllers/LoginController.php?sin_rol=1');
     }
 }
 
-require __DIR__ . '/../views/login/index.php';
+require __DIR__ . '/SICAWN/views/login/index.php';
