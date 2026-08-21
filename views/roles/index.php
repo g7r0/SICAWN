@@ -15,6 +15,7 @@
 <body>
 
     <h1>Gestión de Roles</h1>
+    <a href="/controllers/LogoutController.php" style="float:right;">Cerrar sesión</a>
 
     <?php if ($mensaje): ?>
         <p style="padding:10px; border-radius:6px; background-color: <?= $tipoMensaje === 'exito' ? '#d1fae5' : '#fee2e2' ?>;">

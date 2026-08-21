@@ -53,4 +53,78 @@ class Usuario
         );
         return $stmt->execute([$rol, $idUsuario]);
     }
+    /**
+     * Busca un usuario por su nombre de usuario, trayendo TODOS los
+     * campos necesarios para validar el login (incluye contraseña,
+     * intentos fallidos y bloqueo).
+     */
+    public static function obtenerPorNombreUsuario(string $nombreUsuario): ?array
+    {
+        $db = conectarDB();
+        $stmt = $db->prepare(
+            "SELECT id_usuario, nombre_completo, nombre_usuario, contrasena,
+                    rol, intentos_fallidos, bloqueado_hasta
+             FROM usuarios
+             WHERE nombre_usuario = ? AND activo = 1"
+        );
+        $stmt->execute([$nombreUsuario]);
+        $resultado = $stmt->fetch();
+        return $resultado ?: null;
+    }
+
+    /**
+     * Suma un intento fallido. Si llega a 5, bloquea 30 minutos.
+     */
+    public static function registrarIntentoFallido(int $idUsuario): void
+    {
+        $db = conectarDB();
+
+        $stmt = $db->prepare("SELECT intentos_fallidos FROM usuarios WHERE id_usuario = ?");
+        $stmt->execute([$idUsuario]);
+        $intentosActuales = (int) $stmt->fetchColumn();
+        $nuevosIntentos = $intentosActuales + 1;
+
+        if ($nuevosIntentos >= 5) {
+            $db->prepare(
+                "UPDATE usuarios
+                 SET intentos_fallidos = ?, bloqueado_hasta = DATE_ADD(NOW(), INTERVAL 30 MINUTE)
+                 WHERE id_usuario = ?"
+            )->execute([$nuevosIntentos, $idUsuario]);
+        } else {
+            $db->prepare(
+                "UPDATE usuarios SET intentos_fallidos = ? WHERE id_usuario = ?"
+            )->execute([$nuevosIntentos, $idUsuario]);
+        }
+    }
+
+    /**
+     * Reinicia el contador de intentos fallidos (login exitoso).
+     */
+    public static function reiniciarIntentos(int $idUsuario): void
+    {
+        $db = conectarDB();
+        $db->prepare(
+            "UPDATE usuarios SET intentos_fallidos = 0, bloqueado_hasta = NULL WHERE id_usuario = ?"
+        )->execute([$idUsuario]);
+    }
+
+    /**
+     * Devuelve los minutos restantes de bloqueo, o 0 si ya no está bloqueado.
+     */
+    public static function minutosDeBloqueoRestantes(array $usuario): int
+    {
+        if (empty($usuario['bloqueado_hasta'])) {
+            return 0;
+        }
+
+        $ahora = new DateTime();
+        $finBloqueo = new DateTime($usuario['bloqueado_hasta']);
+
+        if ($finBloqueo <= $ahora) {
+            return 0;
+        }
+
+        $diferencia = $ahora->diff($finBloqueo);
+        return ($diferencia->h * 60) + $diferencia->i + 1; // +1 para redondear hacia arriba
+    }
 }
