@@ -53,17 +53,23 @@ class Usuario
         );
         return $stmt->execute([$rol, $idUsuario]);
     }
+    
     /**
      * Busca un usuario por su nombre de usuario, trayendo TODOS los
-     * campos necesarios para validar el login (incluye contraseña,
-     * intentos fallidos y bloqueo).
+     * campos necesarios para validar el login, incluyendo el cálculo
+     * de bloqueo hecho directamente en MySQL (evita bugs de zona horaria).
      */
     public static function obtenerPorNombreUsuario(string $nombreUsuario): ?array
     {
         $db = conectarDB();
         $stmt = $db->prepare(
             "SELECT id_usuario, nombre_completo, nombre_usuario, contrasena,
-                    rol, intentos_fallidos, bloqueado_hasta
+                    rol, intentos_fallidos,
+                    CASE
+                        WHEN bloqueado_hasta IS NOT NULL AND bloqueado_hasta > NOW()
+                        THEN GREATEST(TIMESTAMPDIFF(MINUTE, NOW(), bloqueado_hasta), 0) + 1
+                        ELSE 0
+                    END AS minutos_bloqueo_restantes
              FROM usuarios
              WHERE nombre_usuario = ? AND activo = 1"
         );

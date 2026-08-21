@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $error = 'Usuario o contraseña incorrectos.';
         } else {
             // --- Verificar si está bloqueado (RF_03) ---
-            $minutosRestantes = Usuario::minutosDeBloqueoRestantes($usuario);
+            $minutosRestantes = (int) $usuario['minutos_bloqueo_restantes'];
 
             if ($minutosRestantes > 0) {
                 $error = "Cuenta bloqueada temporalmente. Intenta de nuevo en {$minutosRestantes} minuto(s).";
