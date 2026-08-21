@@ -68,8 +68,8 @@ function redirigirSegunRol(?string $rol): void
     } else {
         // Usuario sin rol asignado todavía (caso de borde, CU-01 pendiente)
         session_destroy();
-        header('Location: //controllers/LoginController.php?sin_rol=1');
+        header('Location: /SICAWN/controllers/LoginController.php?sin_rol=1');
     }
 }
 
-require __DIR__ . '/SICAWN/views/login/index.php';
+require __DIR__ . '/../views/login/index.php';
