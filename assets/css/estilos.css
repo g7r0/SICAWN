@@ -4,7 +4,17 @@
   --color-secundario: #F5FDD4; /* beige institucional SICAWN */
   --color-fondo: #f9fafb;
   --color-texto: #111827;
+  --color-exito-fondo: #d1fae5;
+  --color-exito-texto: #065f46;
+  --color-error-fondo: #fee2e2;
+  --color-error-texto: #991b1b;
+  --color-aviso-fondo: #fef3c7;
+  --color-aviso-texto: #92400e;
   --fuente-principal: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 body {
@@ -14,13 +24,16 @@ body {
   margin: 0;
 }
 
-/* Clases de botones reutilizables */
+/* ===== Botones ===== */
 .btn {
   padding: 10px 18px;
   border-radius: 6px;
   border: none;
   cursor: pointer;
   font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  display: inline-block;
 }
 
 .btn-primario {
@@ -28,7 +41,159 @@ body {
   color: white;
 }
 
+.btn-primario:hover {
+  background-color: #235a91;
+}
+
 .btn-secundario {
   background-color: var(--color-secundario);
   color: var(--color-texto);
+}
+
+.btn-secundario:hover {
+  background-color: #e8f0c0;
+}
+
+/* ===== Barra superior (header de módulos) ===== */
+.barra-superior {
+  background-color: var(--color-primario);
+  color: white;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.barra-superior h1 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.barra-superior a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  background-color: rgba(255,255,255,0.15);
+  padding: 8px 14px;
+  border-radius: 6px;
+}
+
+.barra-superior a:hover {
+  background-color: rgba(255,255,255,0.25);
+}
+
+/* ===== Contenedor de contenido ===== */
+.contenido {
+  padding: 24px;
+}
+
+/* ===== Tarjeta de login ===== */
+.tarjeta-login {
+  max-width: 400px;
+  margin: 80px auto;
+  padding: 32px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.tarjeta-login h1 {
+  color: var(--color-primario);
+  font-size: 22px;
+  margin-bottom: 4px;
+}
+
+.tarjeta-login p.subtitulo {
+  color: #6b7280;
+  font-size: 14px;
+  margin-top: 0;
+  margin-bottom: 24px;
+}
+
+/* ===== Formularios ===== */
+.campo-formulario {
+  margin-bottom: 16px;
+}
+
+.campo-formulario label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.campo-formulario input,
+.campo-formulario select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.campo-formulario input:focus,
+.campo-formulario select:focus {
+  outline: none;
+  border-color: var(--color-primario);
+}
+
+/* ===== Mensajes de alerta ===== */
+.alerta {
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.alerta-exito {
+  background-color: var(--color-exito-fondo);
+  color: var(--color-exito-texto);
+}
+
+.alerta-error {
+  background-color: var(--color-error-fondo);
+  color: var(--color-error-texto);
+}
+
+.alerta-aviso {
+  background-color: var(--color-aviso-fondo);
+  color: var(--color-aviso-texto);
+}
+
+/* ===== Tablas ===== */
+.tabla-sicawn {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+.tabla-sicawn th {
+  background-color: var(--color-primario);
+  color: white;
+  text-align: left;
+  padding: 12px 16px;
+  font-size: 14px;
+}
+
+.tabla-sicawn td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 14px;
+}
+
+.tabla-sicawn tr:last-child td {
+  border-bottom: none;
+}
+
+.tabla-sicawn tr:hover td {
+  background-color: var(--color-fondo);
+}
+
+.form-inline {
+  display: flex;
+  gap: 8px;
+  align-items: center;
 }

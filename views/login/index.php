@@ -14,30 +14,34 @@ require_once __DIR__ . '/../../config/rutas.php';
 </head>
 <body>
 
-    <div style="max-width:400px; margin:80px auto; padding:24px; border:1px solid #ccc; border-radius:8px;">
+    <div class="tarjeta-login">
         <h1>Iniciar Sesión</h1>
-        <p>Sistema Gestor del Cobro del Agua Nauak</p>
+        <p class="subtitulo">Sistema Gestor del Cobro del Agua Nauak</p>
+
+        <?php if (isset($_GET['sesion_cerrada'])): ?>
+            <div class="alerta alerta-exito">Sesión cerrada correctamente.</div>
+        <?php endif; ?>
 
         <?php if (isset($_GET['sin_rol'])): ?>
-            <p style="padding:10px; border-radius:6px; background-color:#fef3c7;">
-                Tu cuenta aún no tiene un rol asignado. Contacta al Presidente.
-            </p>
+            <div class="alerta alerta-aviso">Tu cuenta aún no tiene un rol asignado. Contacta al Presidente.</div>
         <?php endif; ?>
 
         <?php if ($error): ?>
-            <p style="padding:10px; border-radius:6px; background-color:#fee2e2;">
-                <?= htmlspecialchars($error) ?>
-            </p>
+            <div class="alerta alerta-error"><?= htmlspecialchars($error) ?></div>
         <?php endif; ?>
 
         <form method="POST" action="<?= BASE_URL ?>/controllers/LoginController.php">
-            <label for="nombre_usuario">Usuario</label><br>
-            <input type="text" id="nombre_usuario" name="nombre_usuario" required autofocus><br><br>
+            <div class="campo-formulario">
+                <label for="nombre_usuario">Usuario</label>
+                <input type="text" id="nombre_usuario" name="nombre_usuario" required autofocus>
+            </div>
 
-            <label for="contrasena">Contraseña</label><br>
-            <input type="password" id="contrasena" name="contrasena" required><br><br>
+            <div class="campo-formulario">
+                <label for="contrasena">Contraseña</label>
+                <input type="password" id="contrasena" name="contrasena" required>
+            </div>
 
-            <button type="submit" class="btn btn-primario">Ingresar</button>
+            <button type="submit" class="btn btn-primario" style="width:100%;">Ingresar</button>
         </form>
     </div>
 
